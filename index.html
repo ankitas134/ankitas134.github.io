@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ankita Survase — ML Engineer & Data Scientist</title>
+<style>
+  :root {
+    --teal: #1D9E75;
+    --teal-light: #E1F5EE;
+    --purple: #534AB7;
+    --purple-light: #EEEDFE;
+    --dark: #1a1a2e;
+    --card: #ffffff;
+    --text: #2C2C2A;
+    --muted: #5F5E5A;
+    --border: #e8e8e8;
+    --bg: #f8f9fa;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center;
+    justify-content: space-between; height: 60px;
+  }
+  .nav-logo {
+    font-weight: 700; font-size: 1.1rem;
+    color: var(--teal); letter-spacing: -0.5px;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; font-size: 0.9rem;
+    color: var(--muted); font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--teal); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    background: var(--dark);
+    padding: 4rem 2rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 70% 50%, #1D9E7522 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, #534AB722 0%, transparent 50%);
+  }
+  .hero-inner {
+    max-width: 900px; margin: 0 auto;
+    position: relative; z-index: 1;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #1D9E7522; border: 1px solid #1D9E7544;
+    color: #5DCAA5; padding: 6px 16px;
+    border-radius: 100px; font-size: 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+  .hero-badge span {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #1D9E75;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800; color: #ffffff;
+    line-height: 1.1; margin-bottom: 1rem;
+    letter-spacing: -1px;
+  }
+  .hero h1 span { color: var(--teal); }
+  .hero-sub {
+    font-size: 1.15rem; color: #9ca3af;
+    max-width: 580px; margin-bottom: 2rem;
+    line-height: 1.7;
+  }
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 2.5rem;
+  }
+  .hero-tag {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #d1d5db; padding: 4px 12px;
+    border-radius: 100px; font-size: 0.8rem;
+  }
+  .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--teal); color: white;
+    border: none; padding: 12px 24px;
+    border-radius: 8px; font-size: 0.9rem;
+    font-weight: 600; cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.1s;
+    display: inline-block;
+  }
+  .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white; padding: 12px 24px;
+    border-radius: 8px; font-size: 0.9rem;
+    font-weight: 600; cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.08); }
+
+  /* STATS */
+  .stats {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 2rem;
+  }
+  .stats-inner {
+    max-width: 900px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-size: 2rem; font-weight: 800;
+    color: var(--teal); display: block;
+  }
+  .stat-label {
+    font-size: 0.8rem; color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* SECTIONS */
+  section { padding: 5rem 2rem; }
+  .section-inner { max-width: 900px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 700;
+    color: var(--teal); text-transform: uppercase;
+    letter-spacing: 0.1em; margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 800; color: var(--text);
+    margin-bottom: 0.75rem; letter-spacing: -0.5px;
+  }
+  .section-sub {
+    font-size: 1rem; color: var(--muted);
+    max-width: 540px; margin-bottom: 3rem;
+    line-height: 1.7;
+  }
+
+  /* PROJECTS */
+  #projects { background: var(--bg); }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .project-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.75rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative; overflow: hidden;
+  }
+  .project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+  }
+  .project-card.featured {
+    border-color: var(--teal);
+    border-width: 2px;
+  }
+  .project-card.featured::before {
+    content: 'Original Idea';
+    position: absolute; top: 16px; right: 16px;
+    background: var(--teal-light);
+    color: #085041; font-size: 0.7rem;
+    font-weight: 700; padding: 3px 10px;
+    border-radius: 100px;
+  }
+  .project-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex; align-items: center;
+    justify-content: center;
+    font-size: 1.3rem; margin-bottom: 1rem;
+  }
+  .project-card h3 {
+    font-size: 1rem; font-weight: 700;
+    color: var(--text); margin-bottom: 0.5rem;
+  }
+  .project-card p {
+    font-size: 0.875rem; color: var(--muted);
+    line-height: 1.6; margin-bottom: 1rem;
+  }
+  .project-tags {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-bottom: 1rem;
+  }
+  .project-tag {
+    font-size: 0.7rem; padding: 3px 10px;
+    border-radius: 100px; font-weight: 600;
+  }
+  .tag-teal {
+    background: var(--teal-light); color: #085041;
+  }
+  .tag-purple {
+    background: var(--purple-light); color: #3C3489;
+  }
+  .tag-gray {
+    background: #f1efe8; color: #444441;
+  }
+  .project-link {
+    font-size: 0.8rem; color: var(--teal);
+    text-decoration: none; font-weight: 600;
+  }
+  .project-link:hover { text-decoration: underline; }
+
+  /* STARTUP PITCH SECTION */
+  .pitch-section {
+    background: var(--dark);
+    color: white; padding: 5rem 2rem;
+  }
+  .pitch-inner { max-width: 900px; margin: 0 auto; }
+  .pitch-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem; margin-top: 2rem;
+  }
+  .pitch-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px; padding: 1.75rem;
+  }
+  .pitch-card h3 {
+    font-size: 1.1rem; font-weight: 700;
+    color: white; margin-bottom: 0.5rem;
+  }
+  .pitch-card .market {
+    font-size: 1.8rem; font-weight: 800;
+    color: var(--teal); margin: 0.5rem 0;
+  }
+  .pitch-card p {
+    font-size: 0.875rem; color: #9ca3af;
+    line-height: 1.6;
+  }
+
+  /* EXPERIENCE */
+  #experience { background: white; }
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .timeline-item {
+    display: flex; gap: 1.5rem;
+    padding-bottom: 2rem;
+  }
+  .timeline-left {
+    display: flex; flex-direction: column;
+    align-items: center; flex-shrink: 0;
+  }
+  .timeline-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%; background: var(--teal);
+    border: 3px solid var(--teal-light);
+    flex-shrink: 0; margin-top: 4px;
+  }
+  .timeline-line {
+    width: 2px; background: var(--border);
+    flex: 1; margin-top: 6px;
+  }
+  .timeline-content { flex: 1; padding-top: 0; }
+  .timeline-title {
+    font-size: 1rem; font-weight: 700;
+    color: var(--text);
+  }
+  .timeline-org {
+    font-size: 0.875rem; color: var(--teal);
+    font-weight: 600; margin: 2px 0;
+  }
+  .timeline-date {
+    font-size: 0.8rem; color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+  .timeline-content ul {
+    list-style: none; padding: 0;
+  }
+  .timeline-content li {
+    font-size: 0.875rem; color: var(--muted);
+    padding-left: 1rem; position: relative;
+    margin-bottom: 4px; line-height: 1.5;
+  }
+  .timeline-content li::before {
+    content: '▸'; position: absolute; left: 0;
+    color: var(--teal); font-size: 0.7rem;
+    top: 2px;
+  }
+
+  /* SKILLS */
+  #skills { background: var(--bg); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .skill-group {
+    background: white; border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.25rem;
+  }
+  .skill-group-title {
+    font-size: 0.75rem; font-weight: 700;
+    color: var(--teal); text-transform: uppercase;
+    letter-spacing: 0.05em; margin-bottom: 0.75rem;
+  }
+  .skill-list {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .skill-pill {
+    font-size: 0.75rem; padding: 3px 10px;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 100px; color: var(--text);
+  }
+
+  /* ACHIEVEMENTS */
+  #achievements { background: white; }
+  .achieve-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .achieve-card {
+    background: var(--bg); border-radius: 12px;
+    padding: 1.25rem; text-align: center;
+  }
+  .achieve-icon {
+    font-size: 1.8rem; margin-bottom: 0.5rem;
+  }
+  .achieve-title {
+    font-size: 0.875rem; font-weight: 700;
+    color: var(--text); margin-bottom: 3px;
+  }
+  .achieve-sub {
+    font-size: 0.75rem; color: var(--muted);
+  }
+
+  /* CONTACT */
+  #contact { background: var(--dark); color: white; }
+  .contact-inner {
+    max-width: 900px; margin: 0 auto;
+    text-align: center;
+  }
+  .contact-inner h2 {
+    font-size: 2rem; font-weight: 800;
+    margin-bottom: 1rem;
+  }
+  .contact-inner p {
+    color: #9ca3af; margin-bottom: 2rem;
+    font-size: 1rem;
+  }
+  .contact-btns {
+    display: flex; gap: 12px;
+    justify-content: center; flex-wrap: wrap;
+  }
+
+  /* FOOTER */
+  footer {
+    background: #111827; color: #6b7280;
+    text-align: center; padding: 1.5rem;
+    font-size: 0.8rem;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .stats-inner { grid-template-columns: repeat(2, 1fr); }
+    .pitch-grid { grid-template-columns: 1fr; }
+    nav .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Ankita Survase</div>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span></span> Open to internships and full-time roles
+    </div>
+    <h1>Hi, I'm Ankita.<br>I build <span>intelligent systems</span><br>that solve real problems.</h1>
+    <p class="hero-sub">
+      ML Engineer and Data Scientist at KJ Somaiya College of Engineering, Mumbai.
+      IEEE research contributor. AWS AI Scholar. Building AI for healthcare and finance.
+    </p>
+    <div class="hero-tags">
+      <span class="hero-tag">Python</span>
+      <span class="hero-tag">Machine Learning</span>
+      <span class="hero-tag">NLP</span>
+      <span class="hero-tag">Time Series</span>
+      <span class="hero-tag">Streamlit</span>
+      <span class="hero-tag">XGBoost</span>
+      <span class="hero-tag">Power BI</span>
+      <span class="hero-tag">AWS</span>
+    </div>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View my work</a>
+      <a href="https://github.com/ankitas134" target="_blank" class="btn-outline">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <span class="stat-num">8.4</span>
+      <span class="stat-label">CGPA / 10</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">2+</span>
+      <span class="stat-label">Years in ML</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">89%</span>
+      <span class="stat-label">Best model precision</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">IEEE</span>
+      <span class="stat-label">Research contributor</span>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-label">Featured work</div>
+    <h2 class="section-title">Projects I've built</h2>
+    <p class="section-sub">Both core projects are original ideas — independently conceived, designed, and built.</p>
+    <div class="projects-grid">
+
+      <div class="project-card featured">
+        <div class="project-icon" style="background:#E1F5EE">🌿</div>
+        <h3>AI in Ayurveda — Prakriti Classifier</h3>
+        <p>ML system classifying users into Ayurvedic body types (Vata, Pitta, Kapha) from a 13-feature questionnaire. RF + SVM ensemble with confidence scores and personalised seasonal health recommendations.</p>
+        <div class="project-tags">
+          <span class="project-tag tag-teal">Random Forest</span>
+          <span class="project-tag tag-teal">SVM</span>
+          <span class="project-tag tag-teal">Streamlit</span>
+          <span class="project-tag tag-gray">Python</span>
+        </div>
+        <a href="https://github.com/ankitas134" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+
+      <div class="project-card featured">
+        <div class="project-icon" style="background:#E6F1FB">💰</div>
+        <h3>FinGuide — AI Investment Engine</h3>
+        <p>Intelligent personal finance advisor mapping risk profiles across 6 asset classes using a 15-feature ML pipeline. Includes live allocation charts and a What-If income simulator.</p>
+        <div class="project-tags">
+          <span class="project-tag tag-purple">XGBoost</span>
+          <span class="project-tag tag-purple">Gradient Boosting</span>
+          <span class="project-tag tag-purple">Streamlit</span>
+          <span class="project-tag tag-gray">Python</span>
+        </div>
+        <a href="https://github.com/ankitas134" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon" style="background:#EEEDFE">🌐</div>
+        <h3>Multilingual NLP Converter</h3>
+        <p>Translation pipeline achieving 82% accuracy across 3 language pairs using TF-IDF vectorization, POS tagging, and precision/recall benchmarking.</p>
+        <div class="project-tags">
+          <span class="project-tag tag-purple">NLP</span>
+          <span class="project-tag tag-purple">TF-IDF</span>
+          <span class="project-tag tag-gray">Scikit-learn</span>
+        </div>
+        <a href="https://github.com/ankitas134" target="_blank" class="project-link">View on GitHub →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- STARTUP PITCH -->
+<div class="pitch-section">
+  <div class="pitch-inner">
+    <div class="section-label" style="color:#5DCAA5">Market opportunity</div>
+    <h2 style="font-size:2rem;font-weight:800;color:white;margin-bottom:0.5rem">
+      Both projects are startup-scalable
+    </h2>
+    <p style="color:#9ca3af;margin-bottom:0">
+      Not just academic projects — real market gaps with real addressable markets.
+    </p>
+    <div class="pitch-grid">
+      <div class="pitch-card">
+        <h3>FinGuide</h3>
+        <div class="market">$500B+</div>
+        <p>Indian retail investment market. 500M+ middle-class Indians lack access to quality personalised financial advisory. FinGuide democratises this with ML.</p>
+      </div>
+      <div class="pitch-card">
+        <h3>AI in Ayurveda</h3>
+        <div class="market">$10B+</div>
+        <p>India's Ayurveda and wellness industry. Zero existing ML-powered Prakriti classifiers at this depth. First-mover advantage in digital Ayurvedic personalisation.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-label">Career</div>
+    <h2 class="section-title">Experience</h2>
+    <p class="section-sub">Research, internships, and real-world ML delivery.</p>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="timeline-dot"></div>
+          <div class="timeline-line"></div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-title">AI Forecasting Research Contributor</div>
+          <div class="timeline-org">KJ Somaiya College of Engineering</div>
+          <div class="timeline-date">Jul 2025 – Present</div>
+          <ul>
+            <li>QINN + LightGBM on 3 Kaggle datasets — 12% lower RMSE than ARIMA</li>
+            <li>Automated preprocessing on 50,000+ records, saving 30% effort</li>
+            <li>Authored 3 sections of peer-reviewed IEEE manuscript</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="timeline-dot"></div>
+          <div class="timeline-line"></div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-title">Data Analytics & ML Intern</div>
+          <div class="timeline-org">Techiolaza Innovations, Mumbai</div>
+          <div class="timeline-date">Nov 2024 – Present</div>
+          <ul>
+            <li>Demand forecasting (PyTrends + Prophet) — 18% above baseline</li>
+            <li>Hate speech classifier — 89% precision on 10,000 samples</li>
+            <li>3 Power BI dashboards — 60% reduction in reporting time</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="timeline-dot"></div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-title">Investment Analyst Intern</div>
+          <div class="timeline-org">ZeTheta, Remote</div>
+          <div class="timeline-date">Oct 2024 – Nov 2024</div>
+          <ul>
+            <li>Evaluated 10+ financial instruments; cited in 4 analyst briefings</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label">Capabilities</div>
+    <h2 class="section-title">Technical skills</h2>
+    <p class="section-sub">Tools and techniques I use to build and ship ML systems.</p>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-title">Languages</div>
+        <div class="skill-list">
+          <span class="skill-pill">Python</span>
+          <span class="skill-pill">SQL</span>
+          <span class="skill-pill">JavaScript</span>
+          <span class="skill-pill">Java</span>
+          <span class="skill-pill">C</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Machine Learning</div>
+        <div class="skill-list">
+          <span class="skill-pill">Scikit-learn</span>
+          <span class="skill-pill">LightGBM</span>
+          <span class="skill-pill">XGBoost</span>
+          <span class="skill-pill">Random Forest</span>
+          <span class="skill-pill">SVM</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Data Science</div>
+        <div class="skill-list">
+          <span class="skill-pill">Pandas</span>
+          <span class="skill-pill">NumPy</span>
+          <span class="skill-pill">NLP</span>
+          <span class="skill-pill">TF-IDF</span>
+          <span class="skill-pill">Time Series</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">Tools & Viz</div>
+        <div class="skill-list">
+          <span class="skill-pill">Streamlit</span>
+          <span class="skill-pill">Power BI</span>
+          <span class="skill-pill">Matplotlib</span>
+          <span class="skill-pill">Git</span>
+          <span class="skill-pill">AWS</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-inner">
+    <div class="section-label">Recognition</div>
+    <h2 class="section-title">Achievements</h2>
+    <div class="achieve-grid">
+      <div class="achieve-card">
+        <div class="achieve-icon">🏅</div>
+        <div class="achieve-title">AWS AI & ML Scholarship</div>
+        <div class="achieve-sub">Udacity Global Cohort</div>
+      </div>
+      <div class="achieve-card">
+        <div class="achieve-icon">📄</div>
+        <div class="achieve-title">IEEE Research Contributor</div>
+        <div class="achieve-sub">Hybrid ML Forecasting Manuscript</div>
+      </div>
+      <div class="achieve-card">
+        <div class="achieve-icon">🚀</div>
+        <div class="achieve-title">Infosys Pragati</div>
+        <div class="achieve-sub">Path to Future Program</div>
+      </div>
+      <div class="achieve-card">
+        <div class="achieve-icon">🏸</div>
+        <div class="achieve-title">State Badminton Champion</div>
+        <div class="achieve-sub">Maharashtra — KJ Somaiya Zonal Rep</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="pitch-section" style="padding:5rem 2rem">
+  <div class="contact-inner">
+    <div class="section-label" style="color:#5DCAA5;text-align:center">Get in touch</div>
+    <h2>Let's work together</h2>
+    <p>I'm actively looking for Data Science, ML, and AI roles.<br>Open to internships and full-time positions.</p>
+    <div class="contact-btns">
+      <a href="mailto:your@email.com" class="btn-primary">Send me an email</a>
+      <a href="https://github.com/ankitas134" target="_blank" class="btn-outline">GitHub</a>
+      <a href="https://linkedin.com/in/yourprofile" target="_blank" class="btn-outline">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Built by Ankita Survase · Mumbai, India · B.Tech Computer Engineering, KJ Somaiya 2023–2027
+</footer>
+
+</body>
+</html>
